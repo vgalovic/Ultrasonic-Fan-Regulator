@@ -1,6 +1,6 @@
 #include "gpio.h"
 
-//hcsr04 sensor - HCSR04
+//ultrasound sensor - HCSR04
 const int TRIG = 5; //Physical: 18
 const int ECHO =  6;//Physical: 22
 //5v: 4 GND: 6
