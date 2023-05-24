@@ -1,13 +1,13 @@
 #include "gpio.h"
 
 //ultrasound sensor - HCSR04
-const int TRIG = 5; //Physical: 18
-const int ECHO = 6; //Physical: 22
+const int TRIG = 4; //Physical: 16 ; DVK512: P4
+const int ECHO = 5; //Physical: 18 ; DVK512: P5
 //5v: 4 GND: 6
 
 //Cooler
-const int PWM = 0; //Physical: 11
-//5v: 2 GND: 9
+const int PWM = 1; //Physical: 12 ; DVK512: P1
+//5v: 2 GND: 14
 
 //LCD pins
 const int RS = 3;
