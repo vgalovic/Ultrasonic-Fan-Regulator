@@ -95,7 +95,7 @@ int gpio::is_reversed(bool b){
     return reversed_value(controle_value);
 }
 
-//---------------------------------------Returns the value of the reversed control------------------------------------------
+//---------------------------------------provides the reversed control's value back------------------------------------------
 
 
 int gpio::reversed_value(int value){
@@ -106,7 +106,7 @@ int gpio::reversed_value(int value){
     }
 }
 
-//------------------------------returns the distance from get_distance() in percentage-----------------------------------
+//------------------------------returns the distance in percentage from get_distance()-----------------------------------
 
 int gpio::hcsr04_procent(){
     if(distance <= 2){
@@ -123,8 +123,9 @@ int gpio::hcsr04_procent(){
         return reversed_value(distance) - 2;
 }
 
-/*Searches for the distance via get_distance(), displays the distance on the LCD, checks whether the ultrasonic sensor value
-is used or the manually entered value from the slider, sets the speed of the cooler based on the check and returns the given value*/
+/* Get_distance() is used to find the distance, display the distance on the LCD, check whether the value from HCSR04 or the manually
+ * input value from the slider is being utilized, set the cooler's speed based on the result of the check, and then return the value
+ * that was supplied.*/
 
 int gpio::working_mode(){
     get_distance();
@@ -141,7 +142,7 @@ int gpio::working_mode(){
     return controle_value;
 }
 
-//------------------It returns confirmation in which mode the program works and returns the controle_value-----------------------
+//------The controle_value is returned after it verifies whether the HCSR04 sesors value or value form slider is being utilized.--------
 
 int gpio::mode_en(bool en){
     if(en){
@@ -154,7 +155,7 @@ int gpio::mode_en(bool en){
     return controle_value;
 }
 
-//---------------------------------------------------Gets value from slider-----------------------------------------------------
+//-----------------------------------------------obtains value from the slider-----------------------------------------------------
 void gpio::get_manual_value(int value){
     manual_value = value;
 }
