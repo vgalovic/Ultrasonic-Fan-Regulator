@@ -29,13 +29,13 @@ private:
 
     void get_distance();
 
-    void fan_controle(int value);
+    void fan_controle();
 
     void lcd_diplay();
 
     int reversed_value(int value);
 
-    int ultrasound_procent();
+    int hcsr04_procent();
 };
 
 #endif // GPIO_H

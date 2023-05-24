@@ -1,6 +1,6 @@
 #include "gpio.h"
 
-//Ultrasound sensor - HCSR04
+//hcsr04 sensor - HCSR04
 const int TRIG = 5; //Physical: 18
 const int ECHO =  6;//Physical: 22
 //5v: 4 GND: 6
@@ -19,12 +19,12 @@ const int D3 = 6;
 
 int fd;
 
-int distance = 0;
-int controle_value = 0;
-int manual_value = 0;
+int distance = 0; //gets distance between HCSR04 and object in front off him in cm
+int controle_value = 0; //gets finel value that will be used in fan_controle();
+int manual_value = 0; // gets value from slider
 
-bool ultrasound_en = true;
-bool reverse_en = false;
+bool hcsr04_en = true; //determen if intput to PWM comes from HCSR04 or slider
+bool reverse_en = false; //determen if commands are reversed or not
 
 //-----------------------------------WiringPi setup,HCSR04 setup, PWM setup--------------------------------------------
 
@@ -71,8 +71,8 @@ void gpio::get_distance() {
 
 //--------------------------------Fan controle-----------------------------------------------------------------------
 
-void gpio::fan_controle(int value){
-    softPwmWrite(PWM, value);
+void gpio::fan_controle(){
+    softPwmWrite(PWM, controle_value);
 }
 
 //------------------------------Display distance on LCD---------------------------------------------------------------
@@ -108,7 +108,7 @@ int gpio::reversed_value(int value){
 
 //------------------------------returns the distance from get_distance() in percentage-----------------------------------
 
-int gpio::ultrasound_procent(){
+int gpio::hcsr04_procent(){
     if(distance <= 2){
         if(reverse_en)
             return 0;
@@ -130,14 +130,14 @@ int gpio::working_mode(){
     get_distance();
     lcd_diplay();
 
-    if(ultrasound_en){
-        controle_value = ultrasound_procent();
+    if(hcsr04_en){
+        controle_value = hcsr04_procent();
 
     } else{
         controle_value = reversed_value(manual_value);
     }
 
-    fan_controle(controle_value);
+    fan_controle();
     return controle_value;
 }
 
@@ -145,10 +145,10 @@ int gpio::working_mode(){
 
 int gpio::mode_en(bool en){
     if(en){
-        ultrasound_en = true;
+        hcsr04_en = true;
     } else{
-        ultrasound_en = false;
-        fan_controle(controle_value);
+        hcsr04_en = false;
+        fan_controle();
     }
 
     return controle_value;

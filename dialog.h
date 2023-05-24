@@ -27,7 +27,7 @@ private slots:
 
     void on_slider_valueChanged(int value);
 
-    void on_ultrasound_clicked();
+    void on_hcsr04_clicked();
 
     void on_manual_clicked();
 

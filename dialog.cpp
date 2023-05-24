@@ -27,7 +27,7 @@ Dialog::~Dialog()
 
 //+++++++++++++++++++++++++++++++++++Ultrasound+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-void Dialog::on_ultrasound_clicked()
+void Dialog::on_hcsr04_clicked()
 {
     ui ->slider->setEnabled(false);
     g.mode_en(true);
