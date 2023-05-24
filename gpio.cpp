@@ -1,11 +1,11 @@
 #include "gpio.h"
 
-//Ultrasound sensor
+//Ultrasound sensor - HCSR04
 const int TRIG = 5; //Physical: 18
 const int ECHO =  6;//Physical: 22
 //5v: 4 GND: 6
 
-//Fan
+//Cooler
 const int PWM = 0; //Physical: 11
 //5v: 2 GND: 9
 
@@ -42,7 +42,7 @@ gpio::gpio(){
     delay(30);
 }
 
-//----------------------------Clear lcd on exit from Application---------------------------------------------------
+//----------------------------Clear lcd and delete class----------------------------------------------------------------
 
 gpio::~gpio(){
     lcdClear(fd);
