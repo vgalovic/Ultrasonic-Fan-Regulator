@@ -19,12 +19,12 @@ const int D3 = 6;
 
 int fd;
 
-int distance = 0; //gets distance between HCSR04 and object in front off him in cm
-int controle_value = 0; //gets finel value that will be used in fan_controle();
-int manual_value = 0; // gets value from slider
+int distance = 0; //calculates the distance in centimeters between HCSR04 and the object in front of him
+int controle_value = 0; //obtains the final value to be utilized in fan_control();
+int manual_value = 0; //obtains value from slider
 
-bool hcsr04_en = true; //determen if intput to PWM comes from HCSR04 or slider
-bool reverse_en = false; //determen if commands are reversed or not
+bool hcsr04_en = true; //decide whether the PWM input comes from the slider or the HCSR04
+bool reverse_en = false; //determine whether or not controls are reversed
 
 //-----------------------------------WiringPi setup,HCSR04 setup, PWM setup--------------------------------------------
 

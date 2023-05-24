@@ -86,7 +86,7 @@ void Dialog::on_reverce_stateChanged(int arg1)
     }
 }
 
-//-----------------------------------button that opens Dialog with chart-------------------------------------------------
+//-----------------------------------button opens a Dialog with chart-------------------------------------------------
 
 void Dialog::on_chart_bt_clicked()
 {
@@ -94,7 +94,7 @@ void Dialog::on_chart_bt_clicked()
     cd->show();
 }
 
-//------------------------------Slot that calls working_mode() from gpio.c evrey 30ms and sets value on bar---------------
+//----------Slot that executes working_mode() from gpio.c every 30 milliseconds and sets the value of the bar---------------
 
 void Dialog::gpio_control(){
     ui->bar->setValue(g.working_mode());
