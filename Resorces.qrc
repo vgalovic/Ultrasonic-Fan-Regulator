@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/Icons">
+        <file>Icons/disabled.png</file>
+        <file>Icons/lock.png</file>
+        <file>Icons/project.png</file>
+        <file>Icons/unlock.png</file>
+    </qresource>
+    <qresource prefix="/qss">
+        <file>qss/MaterialDark.qss</file>
+    </qresource>
+</RCC>
