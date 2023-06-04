@@ -19,7 +19,9 @@ const int D3 = 6;
 
 int fd;
 
+const int MAX_DISTANCE = 22; // The greatest distance from HCSR04 that is permitted; anything beyond that will be calculated as a percentage of 100%.
 int distance = 0; //calculates the distance in centimeters between HCSR04 and the object in front of him
+
 int controle_value = 0; //obtains the final value to be utilized in fan_control();
 int manual_value = 0; //obtains value from slider
 
@@ -46,6 +48,7 @@ gpio::gpio(){
 
 gpio::~gpio(){
     lcdClear(fd);
+    softPwmWrite(PWM, 0);
 }
 
 
@@ -69,17 +72,11 @@ void gpio::get_distance() {
         distance = travelTime / 58;
 }
 
-//--------------------------------Fan controle-----------------------------------------------------------------------
-
-void gpio::fan_controle(){
-    softPwmWrite(PWM, controle_value);
-}
-
 //------------------------------Display distance on LCD---------------------------------------------------------------
 
 void gpio::lcd_diplay(){
      lcdClear(fd);
-     lcdHome(fd);
+     lcdPosition(fd, 0 , 0);
      lcdPrintf(fd,"Dist: %d cm", distance);
 }
 
@@ -114,13 +111,13 @@ int gpio::hcsr04_procent(){
             return 0;
         else
             return 100;
-   }else if (distance >= 102){
+   }else if (distance >= MAX_DISTANCE){
         if(reverse_en)
             return 100;
         else
             return 0;
     }else
-        return reversed_value(distance) - 2;
+        return reversed_value((distance / MAX_DISTANCE) * 100);
 }
 
 /* Get_distance() is used to find the distance, display the distance on the LCD, check whether the value from HCSR04 or the manually
@@ -138,7 +135,7 @@ int gpio::working_mode(){
         controle_value = reversed_value(manual_value);
     }
 
-    fan_controle();
+    softPwmWrite(PWM, controle_value);
     return controle_value;
 }
 
@@ -149,7 +146,7 @@ int gpio::mode_en(bool en){
         hcsr04_en = true;
     } else{
         hcsr04_en = false;
-        fan_controle();
+        manual_value = controle_value;
     }
 
     return controle_value;
@@ -164,4 +161,10 @@ void gpio::get_manual_value(int value){
 
 int gpio::set_distance(){
     return distance;
+}
+
+//------------------------------------------------------Set hcsr04_en------------------------------------------------------------
+
+bool gpio::set_hcsr04_en(){
+    return hcsr04_en;
 }

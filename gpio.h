@@ -25,11 +25,11 @@ public:
 
     int set_distance();
 
+    bool set_hcsr04_en();
+
 private:
 
     void get_distance();
-
-    void fan_controle();
 
     void lcd_diplay();
 
