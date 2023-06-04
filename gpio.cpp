@@ -83,13 +83,11 @@ void gpio::lcd_diplay(){
 
 //-------------------------------------Returns whether the controls are reversed--------------------------------------
 
-int gpio::is_reversed(bool b){
+void gpio::is_reversed(bool b){
     if(b){
         reverse_en = true;
     } else
         reverse_en = false;
-
-    return reversed_value(controle_value);
 }
 
 //---------------------------------------provides the reversed control's value back------------------------------------------
@@ -141,15 +139,13 @@ int gpio::working_mode(){
 
 //------The controle_value is returned after it verifies whether the HCSR04 sesors value or value form slider is being utilized.--------
 
-int gpio::mode_en(bool en){
+void gpio::mode_en(bool en){
     if(en){
         hcsr04_en = true;
     } else{
         hcsr04_en = false;
         manual_value = controle_value;
     }
-
-    return controle_value;
 }
 
 //-----------------------------------------------obtains value from the slider-----------------------------------------------------
@@ -161,6 +157,10 @@ void gpio::get_manual_value(int value){
 
 int gpio::set_distance(){
     return distance;
+}
+
+int gpio::set_control_value(){
+    return reversed_value(controle_value);
 }
 
 //------------------------------------------------------Set hcsr04_en------------------------------------------------------------
