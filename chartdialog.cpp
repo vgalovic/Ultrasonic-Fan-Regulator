@@ -26,7 +26,7 @@ ChartDialog::~ChartDialog()
 }
 
 void ChartDialog::create_chart(){
-    series->append(gpio::set_distance(), counter);
+    series->append(gpio::distance, counter);
 
 
     chart->legend()->hide();

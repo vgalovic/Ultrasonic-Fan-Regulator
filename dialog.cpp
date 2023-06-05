@@ -29,8 +29,13 @@ Dialog::~Dialog()
 
 void Dialog::on_hcsr04_clicked()
 {
+    gpio::hcsr04_en = true;
+
     ui->slider->setEnabled(false);
-    g.mode_en(true);
+    if(gpio::reverse_en)
+        ui->slider->setValue(100);
+    else
+        ui->slider->setValue(0);
 
     ui->button->setEnabled(true);
     ui->button->setStyleSheet("border-image:url(:/Icons/Icons/unlock.png);");
@@ -46,9 +51,9 @@ void Dialog::on_manual_clicked()
     ui->button->setChecked(false);
     ui->button->setStyleSheet("border-image:url(:/Icons/Icons/disabled.png);");
 
-    g.mode_en(false);
+    gpio::hcsr04_en = false;
 
-    ui->slider->setValue(g.set_control_value());
+    ui->slider->setValue(gpio::controle_value);
 }
 
 //------------------------------------Image Button-----------------------------------------------------------------------
@@ -58,12 +63,12 @@ void Dialog::on_button_clicked(bool checked)
     //=================================Locked=========================================================
     if(checked){
         ui->button->setStyleSheet("border-image:url(:/Icons/Icons/lock.png);");
-        g.mode_en(false);
+        gpio::hcsr04_en = false;
     }
     //=================================Unlocked=========================================================
     else{
         ui->button->setStyleSheet("border-image:url(:/Icons/Icons/unlock.png);");
-        g.mode_en(true);
+        gpio::hcsr04_en =true;
     }
 }
 
@@ -71,7 +76,7 @@ void Dialog::on_button_clicked(bool checked)
 
 void Dialog::on_slider_valueChanged(int value)
 {
-   g.get_manual_value(value);
+    gpio::manual_value = value;
 }
 
 //-----------------------------------Check box------------------------------------------------------------------------
@@ -80,14 +85,14 @@ void Dialog::on_reverce_stateChanged(int arg1)
 {
     if(arg1 == 0){
         ui->slider->setInvertedAppearance(false);
-        g.is_reversed(false);
+        gpio::reverse_en = false;
     }
     else if(arg1 == 2){
         ui->slider->setInvertedAppearance(true);
-        g.is_reversed(true);
+        gpio::reverse_en = true;
     }
     if(!g.set_hcsr04_en())
-        ui->slider->setValue(g.set_control_value());
+        ui->slider->setValue(gpio::controle_value);
 }
 
 //-----------------------------------button opens a Dialog with chart-------------------------------------------------
@@ -101,7 +106,8 @@ void Dialog::on_chart_bt_clicked()
 //----------Slot that executes working_mode() from gpio.c every 30 milliseconds and sets the value of the bar---------------
 
 void Dialog::gpio_control(){
-    ui->bar->setValue(g.working_mode());
+    g.working_mode();
+    ui->bar->setValue(gpio::controle_value);
 
 }
 

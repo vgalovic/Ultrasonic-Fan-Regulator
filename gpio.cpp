@@ -20,17 +20,21 @@ const int D3 = 6;
 int fd;
 
 const int MAX_DISTANCE = 22; // The greatest distance from HCSR04 that is permitted; anything beyond that will be calculated as a percentage of 100%.
-int distance = 0; //calculates the distance in centimeters between HCSR04 and the object in front of him
-
-int controle_value = 0; //obtains the final value to be utilized in fan_control();
-int manual_value = 0; //obtains value from slider
-
-bool hcsr04_en = true; //decide whether the PWM input comes from the slider or the HCSR04
-bool reverse_en = false; //determine whether or not controls are reversed
 
 //-----------------------------------WiringPi setup,HCSR04 setup, PWM setup--------------------------------------------
 
 gpio::gpio(){
+
+    //===================================================================================================//
+    distance = 0; //calculates the distance in centimeters between HCSR04 and the object in front of him
+
+    controle_value = 0; //obtains the final value to be utilized in fan_control();
+    manual_value = 0; //obtains value from slider
+
+    hcsr04_en = true; //decide whether the PWM input comes from the slider or the HCSR04
+    reverse_en = false; //determine whether or not controls are reversed
+    //===================================================================================================//
+
     wiringPiSetup();
     pinMode(TRIG, OUTPUT);
     pinMode(ECHO, INPUT);
@@ -80,16 +84,6 @@ void gpio::lcd_diplay(){
      lcdPrintf(fd,"Dist: %d cm", distance);
 }
 
-
-//-------------------------------------Returns whether the controls are reversed--------------------------------------
-
-void gpio::is_reversed(bool b){
-    if(b){
-        reverse_en = true;
-    } else
-        reverse_en = false;
-}
-
 //---------------------------------------provides the reversed control's value back------------------------------------------
 
 
@@ -122,7 +116,7 @@ int gpio::hcsr04_procent(){
  * input value from the slider is being utilized, set the cooler's speed based on the result of the check, and then return the value
  * that was supplied.*/
 
-int gpio::working_mode(){
+void gpio::working_mode(){
     get_distance();
     lcd_diplay();
 
@@ -134,37 +128,4 @@ int gpio::working_mode(){
     }
 
     softPwmWrite(PWM, controle_value);
-    return controle_value;
-}
-
-//------The controle_value is returned after it verifies whether the HCSR04 sesors value or value form slider is being utilized.--------
-
-void gpio::mode_en(bool en){
-    if(en){
-        hcsr04_en = true;
-    } else{
-        hcsr04_en = false;
-        manual_value = controle_value;
-    }
-}
-
-//-----------------------------------------------obtains value from the slider-----------------------------------------------------
-void gpio::get_manual_value(int value){
-    manual_value = value;
-}
-
-//------------------------------------------------------Set distance------------------------------------------------------------
-
-int gpio::set_distance(){
-    return distance;
-}
-
-int gpio::set_control_value(){
-    return reversed_value(controle_value);
-}
-
-//------------------------------------------------------Set hcsr04_en------------------------------------------------------------
-
-bool gpio::set_hcsr04_en(){
-    return hcsr04_en;
 }

@@ -15,19 +15,17 @@ public:
 
     ~gpio();
 
-    void is_reversed(bool b);
+    void working_mode();
 
-    void mode_en(bool en);
+ protected:
+    int distance;
 
-    void get_manual_value(int value);
+    int controle_value;
+    int manual_value;
 
-    int working_mode();
+    bool hcsr04_en;
+    bool reverse_en;
 
-    int set_distance();
-
-    int set_control_value();
-
-    bool set_hcsr04_en();
 
 private:
 

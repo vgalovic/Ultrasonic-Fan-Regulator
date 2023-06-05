@@ -14,7 +14,7 @@ namespace Ui {
 class ChartDialog;
 }
 
-class ChartDialog : public QDialog, public gpio
+class ChartDialog : public QDialog, protected gpio
 {
     Q_OBJECT
 

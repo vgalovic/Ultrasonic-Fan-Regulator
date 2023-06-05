@@ -12,15 +12,13 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class Dialog; }
 QT_END_NAMESPACE
 
-class Dialog : public QDialog
+class Dialog : public QDialog, protected gpio
 {
     Q_OBJECT
 
 public:
     Dialog(QWidget *parent = nullptr);
     ~Dialog();
-
-    void button_relece();
 
 private slots:
     void on_button_clicked(bool checked);
