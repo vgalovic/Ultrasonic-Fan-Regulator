@@ -26,14 +26,11 @@ public:
     bool hcsr04_en;
     bool reverse_en;
 
-
 private:
 
     void get_distance();
 
     void lcd_diplay();
-
-    int reversed_value(int value);
 
     int hcsr04_procent();
 };

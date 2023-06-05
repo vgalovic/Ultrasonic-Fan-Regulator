@@ -55,6 +55,26 @@ gpio::~gpio(){
     softPwmWrite(PWM, 0);
 }
 
+/* Get_distance() is used to find the distance, display the distance on the LCD, check whether the value from HCSR04 or the manually
+ * input value from the slider is being utilized, set the cooler's speed based on the result of the check, and then return the value
+ * that was supplied.
+ */
+
+void gpio::working_mode(){
+    get_distance();
+    lcd_diplay();
+
+    if(hcsr04_en)
+        controle_value = hcsr04_procent();
+
+    else
+        controle_value = manual_value;
+
+    if(reverse_en)
+        controle_value = 100 - controle_value;
+
+    softPwmWrite(PWM, controle_value);
+}
 
 //--------------------------------HCSR04 distance-----------------------------------------------------------------------
 
@@ -84,48 +104,13 @@ void gpio::lcd_diplay(){
      lcdPrintf(fd,"Dist: %d cm", distance);
 }
 
-//---------------------------------------provides the reversed control's value back------------------------------------------
-
-
-int gpio::reversed_value(int value){
-    if(reverse_en){
-        return 100 - value;
-    }else{
-        return value;
-    }
-}
-
 //------------------------------returns the distance in percentage from get_distance()-----------------------------------
 
 int gpio::hcsr04_procent(){
-    if(distance <= 2){
-        if(reverse_en)
-            return 0;
-        else
-            return 100;
-   }else if (distance >= MAX_DISTANCE){
-        if(reverse_en)
-            return 100;
-        else
-            return 0;
-    }else
-        return reversed_value((distance / MAX_DISTANCE) * 100);
-}
-
-/* Get_distance() is used to find the distance, display the distance on the LCD, check whether the value from HCSR04 or the manually
- * input value from the slider is being utilized, set the cooler's speed based on the result of the check, and then return the value
- * that was supplied.*/
-
-void gpio::working_mode(){
-    get_distance();
-    lcd_diplay();
-
-    if(hcsr04_en){
-        controle_value = hcsr04_procent();
-
-    } else{
-        controle_value = reversed_value(manual_value);
-    }
-
-    softPwmWrite(PWM, controle_value);
+    if(distance <= 2)
+        return 0;
+    else if (distance >= MAX_DISTANCE)
+        return 100;
+    else
+        return (distance / MAX_DISTANCE) * 100;
 }

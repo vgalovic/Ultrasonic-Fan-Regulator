@@ -91,7 +91,7 @@ void Dialog::on_reverce_stateChanged(int arg1)
         ui->slider->setInvertedAppearance(true);
         gpio::reverse_en = true;
     }
-    if(!g.set_hcsr04_en())
+    if(!gpio::hcsr04_en)
         ui->slider->setValue(gpio::controle_value);
 }
 
