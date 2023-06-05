@@ -14,6 +14,16 @@ ChartDialog::ChartDialog(QWidget *parent)
 
     timer = new QTimer(this);
 
+    chart->legend()->hide();
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    //postavljanje grafika u vertikal layout
+     ui->verticalLayout->addWidget(chartView);
+
     connect(timer,SIGNAL(timeout()),this,SLOT(create_chart()));
 
     timer->start(30);
@@ -27,21 +37,6 @@ ChartDialog::~ChartDialog()
 
 void ChartDialog::create_chart(){
     series->append(gpio::distance, counter);
-
-
-    chart->legend()->hide();
-    chart->addSeries(series);
-    chart->createDefaultAxes();
-
-    //chart->axisX()->setRange(2, 400);
-
-    //chart->axisY()->setRange(0, counter);
-
-    QChartView *chartView = new QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
-
-    //postavljanje grafika u vertikal layout
-     ui->verticalLayout->addWidget(chartView);
 
      counter += 30;
 }
