@@ -27,11 +27,8 @@ public:
     bool reverse_en;
 
 private:
-
     void get_distance();
-
     void lcd_diplay();
-
     int hcsr04_procent();
 };
 

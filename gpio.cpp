@@ -19,9 +19,18 @@ const int D3 = 6;
 
 int fd;
 
-const int MAX_DISTANCE = 22; // The greatest distance from HCSR04 that is permitted; anything beyond that will be calculated as a percentage of 100%.
+// The greatest distance from HCSR04 that is permitted, anything beyond that will be calculated as a percentage of 100%.
+const int MAX_DISTANCE = 22;
 
-//-----------------------------------WiringPi setup,HCSR04 setup, PWM setup--------------------------------------------
+//-------------------------------------------------------------------------------------------------------//
+
+/*declares a variables to that will be used in program.
+ * Set up WiringPi
+ * Set the TRIGER pin mode to OUTPUT and the ECHO pin mode to INPUT.
+ * Set up SoftPWM
+ * Set up LCD
+ * TRIGER set to LOW and wait 30 milliseconds
+ */
 
 gpio::gpio(){
 
@@ -48,16 +57,22 @@ gpio::gpio(){
     delay(30);
 }
 
-//----------------------------Clear lcd and delete class----------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------//
+
+/*Clear lcd and delete class*/
 
 gpio::~gpio(){
     lcdClear(fd);
     softPwmWrite(PWM, 0);
 }
 
-/* Get_distance() is used to find the distance, display the distance on the LCD, check whether the value from HCSR04 or the manually
- * input value from the slider is being utilized, set the cooler's speed based on the result of the check, and then return the value
- * that was supplied.
+//-------------------------------------------------------------------------------------------------------//
+
+/* Use get_distance() to determine the distance
+ * Using display_lcd(), show the distance on the LCD,
+ * Verify whether the slider's manually entered value or the value from HCSR04 is being used
+ * Identify whether reversing a value is necessary, and if so, do it
+ * based on the outcome of the code beforehand, adjust the cooler's speed
  */
 
 void gpio::working_mode(){
@@ -76,7 +91,9 @@ void gpio::working_mode(){
     softPwmWrite(PWM, controle_value);
 }
 
-//--------------------------------HCSR04 distance-----------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------//
+
+/*gets the centimeters between the sensor HCSR04 and an object*/
 
 void gpio::get_distance() {
         //Send trig pulse
@@ -94,9 +111,15 @@ void gpio::get_distance() {
 
         //Get distance in cm
         distance = travelTime / 58;
+
+        /* The speed of sound is 340 m/s or 29 microseconds per centimeter.
+         * Taking half the total distance (there and back) we can use the divisor 58.
+         */
 }
 
-//------------------------------Display distance on LCD---------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------//
+
+/*Display distance on LCD*/
 
 void gpio::lcd_diplay(){
      lcdClear(fd);
@@ -104,7 +127,9 @@ void gpio::lcd_diplay(){
      lcdPrintf(fd,"Dist: %d cm", distance);
 }
 
-//------------------------------returns the distance in percentage from get_distance()-----------------------------------
+//-------------------------------------------------------------------------------------------------------//
+
+/*returns the distance in percentage from get_distance()*/
 
 int gpio::hcsr04_procent(){
     if(distance <= 2)
@@ -114,3 +139,5 @@ int gpio::hcsr04_procent(){
     else
         return (distance / MAX_DISTANCE) * 100;
 }
+
+//-------------------------------------------------------------------------------------------------------//
