@@ -1,5 +1,6 @@
 #include "dialog.h"
 #include "ui_dialog.h"
+
 #include "chartdialog.h"
 
 gpio g;
@@ -99,8 +100,11 @@ void Dialog::on_reverce_stateChanged(int arg1)
 
 void Dialog::on_chart_bt_clicked()
 {
-    ChartDialog *cd =new ChartDialog(this);//Chart ne radi!  "Can not add series. Series already on the chart."
-    cd->show();
+    if(!gpio::chart_en){
+        gpio::chart_en = true;
+        ChartDialog *cd = new ChartDialog(this);
+        cd->show();
+    }
 }
 
 //----------Slot that executes working_mode() from gpio.c every 30 milliseconds and sets the value of the bar---------------

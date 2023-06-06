@@ -32,6 +32,7 @@ ChartDialog::ChartDialog(QWidget *parent)
 
 ChartDialog::~ChartDialog()
 {
+    gpio::chart_en = false;
     delete ui;
 }
 

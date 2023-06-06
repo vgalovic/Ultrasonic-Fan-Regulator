@@ -12,7 +12,6 @@ class gpio
 {
 public:
     gpio();
-
     ~gpio();
 
     void working_mode();
@@ -25,6 +24,10 @@ public:
 
     bool hcsr04_en;
     bool reverse_en;
+
+   //-------------//
+    bool chart_en;
+   //-------------//
 
 private:
     void get_distance();
