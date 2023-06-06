@@ -42,7 +42,7 @@ gpio::gpio(){
 
     hcsr04_en = true; //decide whether the PWM input comes from the slider or the HCSR04
     reverse_en = false; //determine whether or not controls are reversed
-    manual_value_changed = false;
+    manual_value_changed = false; //determines if the manual_value has changed.
 
     //***************************************************************************************************//
     chart_en = false; //stops multiple chart dialogs from opening
