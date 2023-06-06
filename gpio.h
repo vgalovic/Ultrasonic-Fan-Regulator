@@ -24,6 +24,7 @@ public:
 
     bool hcsr04_en;
     bool reverse_en;
+    bool manual_value_changed;
 
    //-------------//
     bool chart_en;

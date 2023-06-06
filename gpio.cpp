@@ -42,6 +42,7 @@ gpio::gpio(){
 
     hcsr04_en = true; //decide whether the PWM input comes from the slider or the HCSR04
     reverse_en = false; //determine whether or not controls are reversed
+    manual_value_changed = false;
 
     //***************************************************************************************************//
     chart_en = false; //stops multiple chart dialogs from opening
@@ -85,12 +86,17 @@ void gpio::working_mode(){
     if(hcsr04_en)
         controle_value = hcsr04_procent();
 
-    else
+    else if(manual_value_changed){
+        manual_value_changed = false;
         controle_value = manual_value;
+    }
+    else
+        goto FAN_CONTROLE;
 
     if(reverse_en)
         controle_value = 100 - controle_value;
 
+    FAN_CONTROLE:
     softPwmWrite(PWM, controle_value);
 }
 

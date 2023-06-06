@@ -77,6 +77,7 @@ void Dialog::on_button_clicked(bool checked)
 
 void Dialog::on_slider_valueChanged(int value)
 {
+    gpio::manual_value_changed = true;
     gpio::manual_value = value;
 }
 
