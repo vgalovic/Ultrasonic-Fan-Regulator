@@ -132,8 +132,12 @@ void gpio::get_distance() {
 
 void gpio::lcd_diplay(){
      lcdClear(fd);
-     lcdPosition(fd, 0 , 0);
-     lcdPrintf(fd,"Dist: %d cm", distance);
+
+     lcdPosition(fd, 0, 0);
+     lcdPrintf(fd,"Udaljenost:");
+
+     lcdPosition(fd, 0, 1);
+     lcdPrintf(fd,"%d cm", distance);
 }
 
 //-------------------------------------------------------------------------------------------------------//
