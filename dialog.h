@@ -29,7 +29,7 @@ private slots:
 
     void on_manual_clicked();
 
-    void on_reverce_stateChanged(int arg1);
+    void on_reverse_stateChanged(int arg1);
 
     void on_chart_bt_clicked();
 

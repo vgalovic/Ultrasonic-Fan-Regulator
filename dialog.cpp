@@ -83,7 +83,7 @@ void Dialog::on_slider_valueChanged(int value)
 
 //-----------------------------------Check box------------------------------------------------------------------------
 
-void Dialog::on_reverce_stateChanged(int arg1)
+void Dialog::on_reverse_stateChanged(int arg1)
 {
     if(arg1 == 0){
         ui->slider->setInvertedAppearance(false);

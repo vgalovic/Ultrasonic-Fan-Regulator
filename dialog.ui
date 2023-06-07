@@ -17,7 +17,7 @@
    <iconset resource="Resorces.qrc">
     <normaloff>:/Icons/Icons/project.png</normaloff>:/Icons/Icons/project.png</iconset>
   </property>
-  <widget class="QCheckBox" name="reverce">
+  <widget class="QCheckBox" name="reverse">
    <property name="geometry">
     <rect>
      <x>10</x>
