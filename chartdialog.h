@@ -37,3 +37,8 @@ private:
 };
 
 #endif // CHARTDIALOG_H
+
+
+/*=====================================
+ * sudo apt install libqt5charts5-dev
+ =====================================*/
