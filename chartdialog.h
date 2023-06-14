@@ -14,7 +14,7 @@ namespace Ui {
 class ChartDialog;
 }
 
-class ChartDialog : public QDialog, protected gpio
+class ChartDialog : public QDialog, public gpio
 {
     Q_OBJECT
 
@@ -24,7 +24,7 @@ public:
 
 
 private slots:
-    void create_chart();
+    void update_chart();
 
 private:
     Ui::ChartDialog *ui;

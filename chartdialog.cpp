@@ -26,7 +26,7 @@ ChartDialog::ChartDialog(QWidget *parent)
     //postavljanje grafika u vertikal layout
      ui->verticalLayout->addWidget(chartView);
 
-    connect(timer,SIGNAL(timeout()),this,SLOT(create_chart()));
+    connect(timer,SIGNAL(timeout()),this,SLOT(update_chart()));
 
     timer->start(TIME);
 
@@ -34,12 +34,12 @@ ChartDialog::ChartDialog(QWidget *parent)
 
 ChartDialog::~ChartDialog()
 {
-    gpio::chart_en = false;
+    gpio::set_chart_en(false);
     delete ui;
 }
 
-void ChartDialog::create_chart(){
-    series->append(gpio::distance, counter);
+void ChartDialog::update_chart(){
+    series->append(gpio::get_distance(), counter);
 
      counter += TIME;
 }
