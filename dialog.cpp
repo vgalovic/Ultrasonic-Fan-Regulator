@@ -16,7 +16,7 @@ Dialog::Dialog(QWidget *parent)
 
     connect(timer,SIGNAL(timeout()),this,SLOT(gpio_control()));
 
-    timer->start(500);
+    timer->start(gpio::TIME);
 }
 
 Dialog::~Dialog()
