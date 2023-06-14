@@ -6,6 +6,34 @@ namespace global {
     bool chart_en = false; //stops multiple chart dialogs from opening
 }
 
+//ultrasound sensor - HCSR04
+const int TRIG = 4; //Physical: 16 ; DVK512: P4
+const int ECHO = 5; //Physical: 18 ; DVK512: P5
+//5v: 4 GND: 6
+
+//Cooler
+const int PWM = 1; //Physical: 12 ; DVK512: P1
+//5v: 2 GND: 14
+
+//LCD pins
+const int RS = 3;
+const int EN = 14;
+const int D0 = 4;
+const int D1 = 12;
+const int D2 = 13;
+const int D3 = 6;
+
+int fd;
+
+// The greatest distance from HCSR04 that is permitted, anything beyond that will be calculated as a percentage of 100%.
+const int MAX_DISTANCE = 22;
+
+int controle_value = 0; //obtains the final value to be utilized in fan_control();
+
+bool hcsr04_en = true; //decide whether the PWM input comes from the slider or the HCSR04
+bool reverse_en = false; //determine whether or not controls are reversed
+bool manual_value_changed = false; //determines if the manual_value has changed.
+
 /*========================================================================================================
 
                                          Public
