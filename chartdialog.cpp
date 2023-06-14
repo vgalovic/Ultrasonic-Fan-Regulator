@@ -1,6 +1,8 @@
 #include "chartdialog.h"
 #include "ui_chartdialog.h"
 
+int const TIME = 500;
+
 int counter = 0;
 
 ChartDialog::ChartDialog(QWidget *parent)
@@ -26,7 +28,7 @@ ChartDialog::ChartDialog(QWidget *parent)
 
     connect(timer,SIGNAL(timeout()),this,SLOT(create_chart()));
 
-    timer->start(30);
+    timer->start(TIME);
 
 }
 
@@ -39,5 +41,5 @@ ChartDialog::~ChartDialog()
 void ChartDialog::create_chart(){
     series->append(gpio::distance, counter);
 
-     counter += 30;
+     counter += TIME;
 }

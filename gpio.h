@@ -16,11 +16,28 @@ public:
 
     void working_mode();
 
+    //-----set------------//
+
+    void set_manual_value(int value);
+
+    void set_hcsr04_en(bool check);
+    void set_reverse_en(bool check);
+    void set_chart_en(bool check);
+
+    //-----get------------//
+
+    int get_distance();
+    int get_controle_value();
+
+    bool get_hcsr04_en();
+    bool get_reverse_en();
+    bool get_chart_en();
+
+
  protected:
     int distance;
 
     int controle_value;
-    int manual_value;
 
     bool hcsr04_en;
     bool reverse_en;
@@ -31,7 +48,7 @@ public:
    //-------------//
 
 private:
-    void get_distance();
+    void get_distance_from_hcsr04();
     void lcd_diplay();
     int hcsr04_procent();
 };

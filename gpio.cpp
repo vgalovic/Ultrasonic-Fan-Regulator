@@ -38,7 +38,6 @@ gpio::gpio(){
     distance = 0; //calculates the distance in centimeters between HCSR04 and the object in front of him
 
     controle_value = 0; //obtains the final value to be utilized in fan_control();
-    manual_value = 0; //obtains value from slider
 
     hcsr04_en = true; //decide whether the PWM input comes from the slider or the HCSR04
     reverse_en = false; //determine whether or not controls are reversed
@@ -80,7 +79,7 @@ gpio::~gpio(){
  */
 
 void gpio::working_mode(){
-    get_distance();
+    get_distance_from_hcsr04();
     lcd_diplay();
 
     if(hcsr04_en)
@@ -88,7 +87,6 @@ void gpio::working_mode(){
 
     else if(manual_value_changed){
         manual_value_changed = false;
-        controle_value = manual_value;
     }
     else
         goto FAN_CONTROLE;
@@ -104,7 +102,7 @@ void gpio::working_mode(){
 
 /*gets the centimeters between the sensor HCSR04 and an object*/
 
-void gpio::get_distance() {
+void gpio::get_distance_from_hcsr04() {
         //Send trig pulse
         digitalWrite(TRIG, HIGH);
         delayMicroseconds(20);
@@ -151,6 +149,53 @@ int gpio::hcsr04_procent(){
         return 100;
     else
         return (distance / MAX_DISTANCE) * 100;
+}
+
+//-------------------------------------------------------------------------------------------------------//
+
+//Set methodes
+
+void gpio::set_manual_value(int value){
+    manual_value_changed = true;
+    controle_value = value;
+}
+
+void gpio::set_hcsr04_en(bool check){
+    hcsr04_en = check;
+}
+
+void gpio::set_reverse_en(bool check){
+    reverse_en = check;
+}
+
+void gpio::set_chart_en(bool check){
+    chart_en = check;
+}
+
+//-------------------------------------------------------------------------------------------------------//
+
+//Get methodes
+
+int gpio::get_distance(){
+    return distance;
+}
+
+int gpio::get_controle_value(){
+    return controle_value;
+}
+
+
+bool gpio::get_hcsr04_en(){
+    return hcsr04_en;
+}
+
+bool gpio::get_reverse_en(){
+    return reverse_en;
+}
+
+
+bool gpio::get_chart_en(){
+    return chart_en;
 }
 
 //-------------------------------------------------------------------------------------------------------//
