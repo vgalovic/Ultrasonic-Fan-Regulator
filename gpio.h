@@ -8,11 +8,15 @@
 #include <softPwm.h>
 #include <lcd.h>
 
+namespace global {
+    extern int const TIME;
+    extern int distance; //calculates the distance in centimeters between HCSR04 and the object in front of him
+    extern bool chart_en; //stops multiple chart dialogs from opening
+}
+
 class gpio
 {
 public:
-    int const TIME = 500;
-
     gpio();
     ~gpio();
 
@@ -25,18 +29,12 @@ public:
     void set_hcsr04_en(bool check);
     void set_reverse_en(bool check);
 
-    void set_chart_en(bool check);
-
     //-----get------------//
-
-    int get_distance();
 
     int get_controle_value();
 
     bool get_hcsr04_en();
     bool get_reverse_en();
-
-    bool get_chart_en();
 
 //-------------------------------------------------------------------------------------------------------//
 
@@ -63,17 +61,11 @@ private:
     // The greatest distance from HCSR04 that is permitted, anything beyond that will be calculated as a percentage of 100%.
     const int MAX_DISTANCE = 22;
 
-    int distance = 0; //calculates the distance in centimeters between HCSR04 and the object in front of him
-
     int controle_value = 0; //obtains the final value to be utilized in fan_control();
 
     bool hcsr04_en = true; //decide whether the PWM input comes from the slider or the HCSR04
     bool reverse_en = false; //determine whether or not controls are reversed
     bool manual_value_changed = false; //determines if the manual_value has changed.
-
-   //-------------//
-    bool chart_en = false; //stops multiple chart dialogs from opening
-   //-------------//
 
     void get_distance_from_hcsr04();
     void lcd_diplay();

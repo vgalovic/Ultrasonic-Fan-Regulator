@@ -26,18 +26,18 @@ ChartDialog::ChartDialog(QWidget *parent)
 
     connect(timer,SIGNAL(timeout()),this,SLOT(update_chart()));
 
-    timer->start(gpio::TIME);
+    timer->start(global::TIME);
 
 }
 
 ChartDialog::~ChartDialog()
 {
-    gpio::set_chart_en(false);
+    global::chart_en = false;
     delete ui;
 }
 
 void ChartDialog::update_chart(){
-    series->append(gpio::get_distance(), counter);
+    series->append(global::distance, counter);
 
-     counter += gpio::TIME;
+     counter += global::TIME;
 }

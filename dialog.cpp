@@ -16,7 +16,7 @@ Dialog::Dialog(QWidget *parent)
 
     connect(timer,SIGNAL(timeout()),this,SLOT(gpio_control()));
 
-    timer->start(gpio::TIME);
+    timer->start(global::TIME);
 }
 
 Dialog::~Dialog()
@@ -100,10 +100,10 @@ void Dialog::on_reverse_stateChanged(int arg1)
 
 void Dialog::on_chart_bt_clicked()
 {
-    if(!g.get_chart_en()){
-        g.set_chart_en(true);
+    if(!global::chart_en){
+        global::chart_en = true;
         ChartDialog *cd = new ChartDialog(this);
-        cd->show();
+        cd->show(); 
     }
 }
 
@@ -112,6 +112,6 @@ void Dialog::on_chart_bt_clicked()
 void Dialog::gpio_control(){
     g.working_mode();
     ui->bar->setValue(g.get_controle_value());
-
 }
+
 

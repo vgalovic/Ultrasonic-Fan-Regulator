@@ -1,5 +1,11 @@
 #include "gpio.h"
 
+namespace global {
+    int const TIME = 500;
+    int distance = 0; //calculates the distance in centimeters between HCSR04 and the object in front of him
+    bool chart_en = false; //stops multiple chart dialogs from opening
+}
+
 /*========================================================================================================
 
                                          Public
@@ -79,21 +85,14 @@ void gpio::set_manual_value(int value){
 void gpio::set_hcsr04_en(bool check){hcsr04_en = check;}
 void gpio::set_reverse_en(bool check){reverse_en = check;}
 
-void gpio::set_chart_en(bool check){chart_en = check;}
-
 //-------------------------------------------------------------------------------------------------------//
 
 /*Get*/
-
-int gpio::get_distance(){return distance;}
 
 int gpio::get_controle_value(){return controle_value; }
 
 bool gpio::get_hcsr04_en(){return hcsr04_en;}
 bool gpio::get_reverse_en(){return reverse_en;}
-
-bool gpio::get_chart_en(){return chart_en;}
-
 
 
 /*========================================================================================================
@@ -119,7 +118,7 @@ void gpio::get_distance_from_hcsr04() {
         long travelTime = micros() - startTime;
 
         //Get distance in cm
-        distance = travelTime / 58;
+        global::distance = travelTime / 58;
 
         /* The speed of sound is 340 m/s or 29 microseconds per centimeter.
          * Taking half the total distance (there and back) we can use the divisor 58.
@@ -137,7 +136,7 @@ void gpio::lcd_diplay(){
      lcdPrintf(fd,"Udaljenost:");
 
      lcdPosition(fd, 0, 1);
-     lcdPrintf(fd,"%d cm", distance);
+     lcdPrintf(fd,"%d cm", global::distance);
 }
 
 //-------------------------------------------------------------------------------------------------------//
@@ -145,12 +144,12 @@ void gpio::lcd_diplay(){
 /*returns the distance in percentage from get_distance()*/
 
 int gpio::hcsr04_procent(){
-    if(distance <= 2)
+    if(global::distance <= 2)
         return 0;
-    else if (distance >= MAX_DISTANCE)
+    else if (global::distance >= MAX_DISTANCE)
         return 100;
     else
-        return (distance / MAX_DISTANCE) * 100;
+        return (global::distance / MAX_DISTANCE) * 100;
 }
 
 //-------------------------------------------------------------------------------------------------------//

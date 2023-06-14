@@ -22,7 +22,6 @@ public:
     explicit ChartDialog(QWidget *parent = nullptr);
     ~ChartDialog();
 
-
 private slots:
     void update_chart();
 
