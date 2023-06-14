@@ -38,6 +38,8 @@ public:
 
     bool get_chart_en();
 
+//-------------------------------------------------------------------------------------------------------//
+
 private:
     //ultrasound sensor - HCSR04
     const int TRIG = 4; //Physical: 16 ; DVK512: P4
