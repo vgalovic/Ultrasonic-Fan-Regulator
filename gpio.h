@@ -40,7 +40,7 @@ public:
     bool get_chart_en(){return chart_en;}
 
 
- protected:
+private:
     int distance;
 
     int controle_value;
@@ -53,7 +53,6 @@ public:
     bool chart_en;
    //-------------//
 
-private:
     void get_distance_from_hcsr04();
     void lcd_diplay();
     int hcsr04_procent();
