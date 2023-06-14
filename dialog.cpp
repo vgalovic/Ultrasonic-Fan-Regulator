@@ -33,10 +33,6 @@ void Dialog::on_hcsr04_clicked()
     g.set_hcsr04_en(true);
 
     ui->slider->setEnabled(false);
-    if(g.get_reverse_en())
-        ui->slider->setValue(100);
-    else
-        ui->slider->setValue(0);
 
     ui->button->setEnabled(true);
     ui->button->setStyleSheet("border-image:url(:/Icons/Icons/unlock.png);");
@@ -85,15 +81,22 @@ void Dialog::on_slider_valueChanged(int value)
 void Dialog::on_reverse_stateChanged(int arg1)
 {
     if(arg1 == 0){
-        ui->slider->setInvertedAppearance(false);
         g.set_reverse_en(false);
     }
     else if(arg1 == 2){
-        ui->slider->setInvertedAppearance(true);
         g.set_reverse_en(true);
     }
-    if(!g.get_hcsr04_en())
-        ui->slider->setValue(g.get_controle_value());
+    if(!g.get_hcsr04_en()){
+        if(g.get_reverse_en()){
+            ui->slider->setInvertedAppearance(true);
+            g.set_manual_value(g.get_controle_value());
+            ui->slider->setValue(g.get_controle_value());
+        }else{
+            ui->slider->setInvertedAppearance(false);
+            g.set_manual_value(100 - g.get_controle_value());
+            ui->slider->setValue(g.get_controle_value());
+        }
+    }
 }
 
 //-----------------------------------button opens a Dialog with chart-------------------------------------------------

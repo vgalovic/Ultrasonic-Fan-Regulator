@@ -86,7 +86,7 @@ void gpio::working_mode(){
     lcd_diplay();
 
     if(hcsr04_en)
-        controle_value = hcsr04_procent();
+        hcsr04_procent();
 
     else if(manual_value_changed){
         manual_value_changed = false;
@@ -171,13 +171,13 @@ void gpio::lcd_diplay(){
 
 /*returns the distance in percentage from get_distance()*/
 
-int gpio::hcsr04_procent(){
+void gpio::hcsr04_procent(){
     if(global::distance <= 2)
-        return 0;
+        controle_value = 0;
     else if (global::distance >= MAX_DISTANCE)
-        return 100;
+        controle_value = 100;
     else
-        return (global::distance / MAX_DISTANCE) * 100;
+        controle_value = (int)((float)global::distance / MAX_DISTANCE) * 100;
 }
 
 //-------------------------------------------------------------------------------------------------------//

@@ -41,7 +41,7 @@ public:
 private:
     void get_distance_from_hcsr04();
     void lcd_diplay();
-    int hcsr04_procent();
+    void hcsr04_procent();
 };
 
 #endif // GPIO_H
