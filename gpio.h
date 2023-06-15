@@ -9,7 +9,8 @@
 #include <lcd.h>
 
 namespace global {
-    extern int const TIME;
+    extern  const int TIME;
+    extern  const int MAX_DISTANCE;
     extern int distance; //calculates the distance in centimeters between HCSR04 and the object in front of him
     extern bool chart_en; //stops multiple chart dialogs from opening
 }

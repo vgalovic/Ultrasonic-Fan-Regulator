@@ -1,7 +1,11 @@
 #include "gpio.h"
 
 namespace global {
-    int const TIME = 500;
+    const int  TIME = 500; //Time for timer in miliseconds
+
+    // The greatest distance from HCSR04 that is permitted, anything beyond that will be calculated as a percentage of 100%.
+    const int MAX_DISTANCE = 22;
+
     int distance = 0; //calculates the distance in centimeters between HCSR04 and the object in front of him
     bool chart_en = false; //stops multiple chart dialogs from opening
 }
@@ -174,7 +178,7 @@ void gpio::lcd_diplay(){
 void gpio::hcsr04_procent(){
     if(global::distance <= 2)
         controle_value = 0;
-    else if (global::distance >= MAX_DISTANCE)
+    else if (global::distance >= global::MAX_DISTANCE)
         controle_value = 100;
     else
         controle_value = (int)((float)global::distance / MAX_DISTANCE) * 100;

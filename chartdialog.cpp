@@ -2,6 +2,7 @@
 #include "ui_chartdialog.h"
 
 float counter = 0;
+int max_distance = global::MAX_DISTANCE;
 
 ChartDialog::ChartDialog(QWidget *parent)
     : QDialog(parent)
@@ -22,7 +23,7 @@ ChartDialog::ChartDialog(QWidget *parent)
      axisX->setLabelFormat("%g");
      axisX->setTitleText("Vreme [s]");
 
-     axisY->setRange(2, 400);
+     axisY->setRange(2, max_distance);
      axisY->setLabelFormat("%g");
      axisY->setTitleText("Distanca [cm]");
 
@@ -51,6 +52,11 @@ void ChartDialog::update_chart(){
     series->append(counter, global::distance);
 
     counter += global::TIME/1000;
+
+    if(global::distance > max_distance){
+        max_distance = global::distance;
+        axisY->setRange(2, max_distance);
+    }
 
     axisX->setRange(0, counter+ 1.5);
 }
