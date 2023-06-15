@@ -50,7 +50,7 @@ ChartDialog::~ChartDialog()
 void ChartDialog::update_chart(){
     series->append(counter, global::distance);
 
-     counter += global::TIME/1000;
+    counter += global::TIME/1000;
 
-     axisX->setRange(0, counter+ 1.5);
+    axisX->setRange(0, counter+ 1.5);
 }
