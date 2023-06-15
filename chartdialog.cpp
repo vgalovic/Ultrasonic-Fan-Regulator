@@ -1,7 +1,7 @@
 #include "chartdialog.h"
 #include "ui_chartdialog.h"
 
-int counter = 0;
+float counter = 0;
 
 ChartDialog::ChartDialog(QWidget *parent)
     : QDialog(parent)
