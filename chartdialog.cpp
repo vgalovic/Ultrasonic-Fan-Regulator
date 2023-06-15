@@ -6,28 +6,39 @@ int counter = 0;
 ChartDialog::ChartDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::ChartDialog)
+    , series(new QLineSeries)
+    , chart(new QChart)
+    , axisX(new QValueAxis)
+    , axisY(new QValueAxis)
 {
     ui->setupUi(this);
-
-    series = new QLineSeries();
-    chart = new QChart();
-
     timer = new QTimer(this);
 
-    chart->legend()->hide();
-    chart->addSeries(series);
-    chart->createDefaultAxes();
-
     QChartView *chartView = new QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
+     chartView->setMinimumSize(800, 600);
 
-    //postavljanje grafika u vertikal layout
+     chart->addSeries(series);
+     axisX->setRange(0, 2);
+     axisX->setLabelFormat("%g");
+     axisX->setTitleText("Vreme [s]");
+
+     axisY->setRange(0, 400);
+     axisY->setLabelFormat("%g");
+     axisY->setTitleText("Distanca [cm]");
+
+     chart->addAxis(axisX, Qt::AlignBottom);
+     series->attachAxis(axisX);
+
+     chart->addAxis(axisY, Qt::AlignLeft);
+     series->attachAxis(axisY);
+
+     chart->legend()->hide();
+     chart->setTitle("Izmerena distanca izmedju objekta i senzora HCSR04");
      ui->verticalLayout->addWidget(chartView);
 
-    connect(timer,SIGNAL(timeout()),this,SLOT(update_chart()));
+    connect(timer,SIGNAL(timeout()),this,SLOT(create_chart()));
 
     timer->start(global::TIME);
-
 }
 
 ChartDialog::~ChartDialog()
@@ -37,7 +48,9 @@ ChartDialog::~ChartDialog()
 }
 
 void ChartDialog::update_chart(){
-    series->append(global::distance, counter);
+    series->append(counter, global::distance);
 
-     counter += global::TIME;
+     counter += global::TIME/1000;
+
+     axisX->setRange(0, counter+ 2);
 }

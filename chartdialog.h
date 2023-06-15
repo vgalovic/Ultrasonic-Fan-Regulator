@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
+#include <QValueAxis>
 #include <QTimer>
 
 #include "gpio.h"
@@ -13,6 +14,8 @@ QT_CHARTS_USE_NAMESPACE
 namespace Ui {
 class ChartDialog;
 }
+
+using namespace QtCharts;
 
 class ChartDialog : public QDialog, public gpio
 {
@@ -31,6 +34,9 @@ private:
     QLineSeries *series;
 
     QChart *chart;
+
+    QValueAxis *axisX;
+    QValueAxis *axisY;
 
     QTimer *timer;
 };
