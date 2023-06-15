@@ -1,8 +1,11 @@
 #include "chartdialog.h"
 #include "ui_chartdialog.h"
 
-float counter = 0;
-int max_distance = global::MAX_DISTANCE;
+float t = 0;
+
+float time_limit = 5;
+int distance_limit = global::MAX_DISTANCE;
+
 
 ChartDialog::ChartDialog(QWidget *parent)
     : QDialog(parent)
@@ -20,11 +23,11 @@ ChartDialog::ChartDialog(QWidget *parent)
     chartView->setMinimumSize(800, 600);
 
     chart->addSeries(series);
-    axisX->setRange(0, 1);
+    axisX->setRange(t, time_limit);
     axisX->setLabelFormat("%g");
     axisX->setTitleText("Vreme [s]");
 
-    axisY->setRange(2, max_distance);
+    axisY->setRange(2, distance_limit);
     axisY->setLabelFormat("%g");
     axisY->setTitleText("Distanca [cm]");
 
@@ -50,17 +53,19 @@ ChartDialog::~ChartDialog()
 }
 
 void ChartDialog::update_chart(){
-    series->append(counter, global::distance);
+    series->append(t, global::distance);
 
-    QString title = QString("Izmerena distanca izmedju objekta i senzora HCSR04 [Distanca: %1 cm, Vreme: %2 s]").arg(global::distance).arg(counter);
+    QString title = QString("Izmerena distanca izmedju objekta i senzora HCSR04 [Distanca: %1 cm, Vreme: %2 s]").arg(global::distance).arg(t);
     chart->setTitle(title);
 
-    counter += global::TIME/1000;
-
-    axisX->setRange(0, counter +1.5);
-
-    if(global::distance > max_distance){
-        max_distance = global::distance;
-        axisY->setRange(2, max_distance);
+    if(t == time_limit){
+        time_limit += 5;
+        axisX->setRange(t, time_limit);
     }
+    if(global::distance > distance_limit){
+        distance_limit = global::distance;
+        axisY->setRange(2, distance_limit);
+    }
+
+   t += global::TIME/1000;
 }
