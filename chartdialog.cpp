@@ -58,5 +58,5 @@ void ChartDialog::update_chart(){
         axisY->setRange(2, max_distance);
     }
 
-    axisX->setRange(0, counter+ 1.5);
+    axisX->setRange(0, counter +1.5);
 }
