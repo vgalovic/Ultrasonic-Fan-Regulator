@@ -18,11 +18,11 @@ ChartDialog::ChartDialog(QWidget *parent)
      chartView->setMinimumSize(800, 600);
 
      chart->addSeries(series);
-     axisX->setRange(0, 2);
+     axisX->setRange(0, 1);
      axisX->setLabelFormat("%g");
      axisX->setTitleText("Vreme [s]");
 
-     axisY->setRange(0, 400);
+     axisY->setRange(2, 400);
      axisY->setLabelFormat("%g");
      axisY->setTitleText("Distanca [cm]");
 
@@ -52,5 +52,5 @@ void ChartDialog::update_chart(){
 
      counter += global::TIME/1000;
 
-     axisX->setRange(0, counter+ 2);
+     axisX->setRange(0, counter+ 1.5);
 }
