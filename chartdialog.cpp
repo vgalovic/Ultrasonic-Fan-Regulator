@@ -13,6 +13,7 @@ ChartDialog::ChartDialog(QWidget *parent)
     , axisY(new QValueAxis)
 {
     ui->setupUi(this);
+
     timer = new QTimer(this);
 
     QChartView *chartView = new QChartView(chart);
