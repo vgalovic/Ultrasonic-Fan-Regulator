@@ -53,10 +53,10 @@ void ChartDialog::update_chart(){
 
     counter += global::TIME/1000;
 
+    axisX->setRange(0, counter +1.5);
+
     if(global::distance > max_distance){
         max_distance = global::distance;
         axisY->setRange(2, max_distance);
     }
-
-    axisX->setRange(0, counter +1.5);
 }
