@@ -52,6 +52,9 @@ ChartDialog::~ChartDialog()
 void ChartDialog::update_chart(){
     series->append(counter, global::distance);
 
+    QString title = QString("Izmerena distanca izmedju objekta i senzora HCSR04 [Distanca: %1 cm, Vreme: %2 s]").arg(global::distance).arg(counter);
+    chart->setTitle(title);
+
     counter += global::TIME/1000;
 
     axisX->setRange(0, counter +1.5);
