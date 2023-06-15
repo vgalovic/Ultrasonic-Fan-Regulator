@@ -39,6 +39,12 @@ private:
     QValueAxis *axisY;
 
     QTimer *timer;
+
+
+    float t;
+
+    float time_limit;
+    int distance_limit;
 };
 
 #endif // CHARTDIALOG_H

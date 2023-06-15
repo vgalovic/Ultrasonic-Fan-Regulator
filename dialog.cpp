@@ -32,6 +32,11 @@ void Dialog::on_hcsr04_clicked()
 {
     g.set_hcsr04_en(true);
 
+    if(g.get_reverse_en())
+        ui->slider->setValue(100);
+    else
+       ui->slider->setValue(0);
+
     ui->slider->setEnabled(false);
 
     ui->button->setEnabled(true);
@@ -82,20 +87,27 @@ void Dialog::on_reverse_stateChanged(int arg1)
 {
     if(arg1 == 0){
         g.set_reverse_en(false);
+
+        if(g.get_hcsr04_en())
+             ui->slider->setValue(0);
     }
+
     else if(arg1 == 2){
         g.set_reverse_en(true);
+
+        if(g.get_hcsr04_en())
+             ui->slider->setValue(100);
     }
+
     if(!g.get_hcsr04_en()){
-        if(g.get_reverse_en()){
-            ui->slider->setInvertedAppearance(true);
-            g.set_manual_value(g.get_controle_value());
-            ui->slider->setValue(g.get_controle_value());
-        }else{
-            ui->slider->setInvertedAppearance(false);
-            g.set_manual_value(100 - g.get_controle_value());
-            ui->slider->setValue(g.get_controle_value());
-        }
+        int r = 100 - g.get_controle_value();
+
+        ui->slider->setValue(r);
+        ui->bar->setValue(r);
+        g.fan_controle(r);
+        g.set_manual_value(r);
+        g.set_manual_value_changed(false);
+
     }
 }
 
@@ -106,6 +118,9 @@ void Dialog::on_chart_bt_clicked()
     if(!global::chart_en){
         global::chart_en = true;
         ChartDialog *cd = new ChartDialog(this);
+
+        cd->setAttribute(Qt::WA_DeleteOnClose);
+
         cd->show(); 
     }
 }
@@ -116,5 +131,3 @@ void Dialog::gpio_control(){
     g.working_mode();
     ui->bar->setValue(g.get_controle_value());
 }
-
-

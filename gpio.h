@@ -22,11 +22,13 @@ public:
     ~gpio();
 
     void working_mode();
+    void fan_controle(int value);
 
     //-----set------------//
 
     void set_manual_value(int value);
 
+    void set_manual_value_changed(bool check);
     void set_hcsr04_en(bool check);
     void set_reverse_en(bool check);
 

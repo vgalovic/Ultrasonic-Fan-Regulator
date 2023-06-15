@@ -73,7 +73,7 @@ gpio::gpio(){
 
 gpio::~gpio(){
     lcdClear(fd);
-    softPwmWrite(PWM, 0);
+    fan_controle(0);
 }
 
 //-------------------------------------------------------------------------------------------------------//
@@ -102,7 +102,11 @@ void gpio::working_mode(){
         controle_value = 100 - controle_value;
 
     FAN_CONTROLE:
-    softPwmWrite(PWM, controle_value);
+    fan_controle(controle_value);
+}
+
+void gpio::fan_controle(int value){
+    softPwmWrite(PWM, value);
 }
 
 //-------------------------------------------------------------------------------------------------------//
@@ -112,6 +116,10 @@ void gpio::working_mode(){
 void gpio::set_manual_value(int value){
     manual_value_changed = true;
     controle_value = value;
+}
+
+void gpio::set_manual_value_changed(bool check){
+    manual_value_changed = check;
 }
 
 void gpio::set_hcsr04_en(bool check){hcsr04_en = check;}
@@ -181,7 +189,7 @@ void gpio::hcsr04_procent(){
     else if (global::distance >= global::MAX_DISTANCE)
         controle_value = 100;
     else
-        controle_value = (int)((float)global::distance / MAX_DISTANCE) * 100;
+        controle_value = (int)(((float)global::distance / MAX_DISTANCE) * 100);
 }
 
 //-------------------------------------------------------------------------------------------------------//
