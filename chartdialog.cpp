@@ -16,26 +16,26 @@ ChartDialog::ChartDialog(QWidget *parent)
     timer = new QTimer(this);
 
     QChartView *chartView = new QChartView(chart);
-     chartView->setMinimumSize(800, 600);
+    chartView->setMinimumSize(800, 600);
 
-     chart->addSeries(series);
-     axisX->setRange(0, 1);
-     axisX->setLabelFormat("%g");
-     axisX->setTitleText("Vreme [s]");
+    chart->addSeries(series);
+    axisX->setRange(0, 1);
+    axisX->setLabelFormat("%g");
+    axisX->setTitleText("Vreme [s]");
 
-     axisY->setRange(2, max_distance);
-     axisY->setLabelFormat("%g");
-     axisY->setTitleText("Distanca [cm]");
+    axisY->setRange(2, max_distance);
+    axisY->setLabelFormat("%g");
+    axisY->setTitleText("Distanca [cm]");
 
-     chart->addAxis(axisX, Qt::AlignBottom);
-     series->attachAxis(axisX);
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
 
-     chart->addAxis(axisY, Qt::AlignLeft);
-     series->attachAxis(axisY);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
 
-     chart->legend()->hide();
-     chart->setTitle("Izmerena distanca izmedju objekta i senzora HCSR04");
-     ui->verticalLayout->addWidget(chartView);
+    chart->legend()->hide();
+    chart->setTitle("Izmerena distanca izmedju objekta i senzora HCSR04");
+    ui->verticalLayout->addWidget(chartView);
 
     connect(timer,SIGNAL(timeout()),this,SLOT(create_chart()));
 
