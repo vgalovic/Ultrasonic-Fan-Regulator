@@ -37,7 +37,7 @@ ChartDialog::ChartDialog(QWidget *parent)
     chart->setTitle("Izmerena distanca izmedju objekta i senzora HCSR04");
     ui->verticalLayout->addWidget(chartView);
 
-    connect(timer,SIGNAL(timeout()),this,SLOT(create_chart()));
+    connect(timer,SIGNAL(timeout()),this,SLOT(update_chart()));
 
     timer->start(global::TIME);
 }
