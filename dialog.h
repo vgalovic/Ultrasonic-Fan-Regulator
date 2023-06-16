@@ -23,7 +23,7 @@ public:
 private slots:
     void on_button_clicked(bool checked);
 
-    void on_slider_valueChanged(int value);
+    void on_slider_sliderMoved(int value);
 
     void on_hcsr04_clicked();
 

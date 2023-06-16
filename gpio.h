@@ -22,7 +22,6 @@ public:
     ~gpio();
 
     void working_mode();
-    void reverse();
 
     //-----set------------//
 

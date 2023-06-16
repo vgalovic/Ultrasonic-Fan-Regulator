@@ -32,10 +32,7 @@ void Dialog::on_hcsr04_clicked()
 {
     g.set_hcsr04_en(true);
 
-    if(g.get_reverse_en())
-        ui->slider->setValue(100);
-    else
-       ui->slider->setValue(0);
+    ui->slider->setValue(0);
 
     ui->slider->setEnabled(false);
 
@@ -76,9 +73,14 @@ void Dialog::on_button_clicked(bool checked)
 
 //-------------------------------------Slider-------------------------------------------------------------------------
 
-void Dialog::on_slider_valueChanged(int value)
+void Dialog::on_slider_sliderMoved(int value)
 {
     g.set_manual_value(value);
+
+    if(g.get_reverse_en())
+        ui->bar->setValue(100 - value);
+    else
+        ui->bar->setValue(value);
 }
 
 //-----------------------------------Check box------------------------------------------------------------------------
@@ -87,20 +89,19 @@ void Dialog::on_reverse_stateChanged(int arg1)
 {
     if(arg1 == 0){
         g.set_reverse_en(false);
-
-        if(g.get_hcsr04_en())
-             ui->slider->setValue(0);
     }
 
     else if(arg1 == 2){
         g.set_reverse_en(true);
-
-        if(g.get_hcsr04_en())
-             ui->slider->setValue(100);
     }
 
     if(!g.get_hcsr04_en()){
-        g.reverse();
+        if(arg1 == 2)
+            g.set_manual_value(g.get_controle_value());
+        else
+            g.set_manual_value(100 - g.get_controle_value());
+
+        g.working_mode();
 
         ui->slider->setValue(g.get_controle_value());
         ui->bar->setValue(g.get_controle_value());
@@ -125,5 +126,6 @@ void Dialog::on_chart_bt_clicked()
 
 void Dialog::gpio_control(){
     g.working_mode();
+
     ui->bar->setValue(g.get_controle_value());
 }

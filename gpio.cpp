@@ -96,9 +96,9 @@ void gpio::working_mode(){
     if(hcsr04_en)
         hcsr04_procent();
 
-    else if(manual_value_changed){
+    else if(manual_value_changed)
         manual_value_changed = false;
-    }
+
     else
         goto FAN_CONTROLE;
 
@@ -106,17 +106,6 @@ void gpio::working_mode(){
         controle_value = 100 - controle_value;
 
     FAN_CONTROLE:
-    softPwmWrite(PWM, controle_value);
-}
-
-
-//-------------------------------------------------------------------------------------------------------//
-
-/* Severse the controle_value value and set the cooler's PWM.
- * Set PWM to the reversed value of controle_value. */
-
-void gpio::reverse(){
-    controle_value = 100 - controle_value;
     softPwmWrite(PWM, controle_value);
 }
 
@@ -170,6 +159,10 @@ void gpio::get_distance_from_hcsr04() {
         /* The speed of sound is 340 m/s or 29 microseconds per centimeter.
          * Taking half the total distance (there and back) we can use the divisor 58.
          */
+
+        // Operating Range & Accuraty:  2cm ~ 400cm (1in ~ 13ft) +(-) 3mm
+        if(global::distance > 400)
+            global::distance = 400;
 }
 
 //-------------------------------------------------------------------------------------------------------//
@@ -192,11 +185,11 @@ void gpio::lcd_diplay(){
 
 void gpio::hcsr04_procent(){
     if(global::distance <= 2)
-        controle_value = 0;
-    else if (global::distance >= global::MAX_DISTANCE)
         controle_value = 100;
+    else if (global::distance >= global::MAX_DISTANCE)
+        controle_value = 0;
     else
-        controle_value = (int)(((float)global::distance / MAX_DISTANCE) * 100);
+        controle_value = 100 - (int)(((float)global::distance / MAX_DISTANCE) * 100);
 }
 
 //-------------------------------------------------------------------------------------------------------//
