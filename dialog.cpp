@@ -100,7 +100,7 @@ void Dialog::on_reverse_stateChanged(int arg1)
     }
 
     if(!g.get_hcsr04_en()){
-        reverse();
+        g.reverse();
 
         ui->slider->setValue(g.get_controle_value());
         ui->bar->setValue(g.get_controle_value());
