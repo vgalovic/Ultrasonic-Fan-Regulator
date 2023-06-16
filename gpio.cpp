@@ -1,5 +1,7 @@
 #include "gpio.h"
 
+//***************************************************************************************************************************//
+
 namespace global {
     const int  TIME = 500; //Time for timer in miliseconds
 
@@ -9,6 +11,8 @@ namespace global {
     int distance = 0; //calculates the distance in centimeters between HCSR04 and the object in front of him
     bool chart_en = false; //stops multiple chart dialogs from opening
 }
+
+//***************************************************************************************************************************//
 
 //ultrasound sensor - HCSR04
 const int TRIG = 4; //Physical: 16 ; DVK512: P4
@@ -118,7 +122,7 @@ void gpio::reverse(){
 
 //-------------------------------------------------------------------------------------------------------//
 
-/*Set*/
+/*Set methodes*/
 
 void gpio::set_manual_value(int value){
     manual_value_changed = true;
@@ -130,7 +134,7 @@ void gpio::set_reverse_en(bool check){reverse_en = check;}
 
 //-------------------------------------------------------------------------------------------------------//
 
-/*Get*/
+/*Get methodes*/
 
 int gpio::get_controle_value(){return controle_value; }
 
