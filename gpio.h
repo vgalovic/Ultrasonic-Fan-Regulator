@@ -44,7 +44,6 @@ private:
     void get_distance_from_hcsr04();
     void lcd_diplay();
     void hcsr04_procent();
-    void fan_controle(int value);
 };
 
 #endif // GPIO_H

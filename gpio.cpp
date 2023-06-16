@@ -73,7 +73,7 @@ gpio::gpio(){
 
 gpio::~gpio(){
     lcdClear(fd);
-    fan_controle(0);
+    softPwmWrite(PWM, 0);
 }
 
 //-------------------------------------------------------------------------------------------------------//
@@ -102,7 +102,7 @@ void gpio::working_mode(){
         controle_value = 100 - controle_value;
 
     FAN_CONTROLE:
-    fan_controle(controle_value);
+    softPwmWrite(PWM, controle_value);
 }
 
 
@@ -113,7 +113,7 @@ void gpio::working_mode(){
 
 void gpio::reverse(){
     controle_value = 100 - controle_value;
-    fan_controle(controle_value);
+    softPwmWrite(PWM, controle_value);
 }
 
 //-------------------------------------------------------------------------------------------------------//
@@ -193,14 +193,6 @@ void gpio::hcsr04_procent(){
         controle_value = 100;
     else
         controle_value = (int)(((float)global::distance / MAX_DISTANCE) * 100);
-}
-
-//-------------------------------------------------------------------------------------------------------//
-
-/* Set the cooler's PWM value. */
-
-void gpio::fan_controle(int value){
-    softPwmWrite(PWM, value);
 }
 
 //-------------------------------------------------------------------------------------------------------//
