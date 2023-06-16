@@ -105,8 +105,15 @@ void gpio::working_mode(){
     fan_controle(controle_value);
 }
 
-void gpio::fan_controle(int value){
-    softPwmWrite(PWM, value);
+
+//-------------------------------------------------------------------------------------------------------//
+
+/* Severse the controle_value value and set the cooler's PWM.
+ * Set PWM to the reversed value of controle_value. */
+
+void gpio::reverse(){
+    controle_value = 100 - controle_value;
+    fan_controle(controle_value);
 }
 
 //-------------------------------------------------------------------------------------------------------//
@@ -116,10 +123,6 @@ void gpio::fan_controle(int value){
 void gpio::set_manual_value(int value){
     manual_value_changed = true;
     controle_value = value;
-}
-
-void gpio::set_manual_value_changed(bool check){
-    manual_value_changed = check;
 }
 
 void gpio::set_hcsr04_en(bool check){hcsr04_en = check;}
@@ -190,6 +193,14 @@ void gpio::hcsr04_procent(){
         controle_value = 100;
     else
         controle_value = (int)(((float)global::distance / MAX_DISTANCE) * 100);
+}
+
+//-------------------------------------------------------------------------------------------------------//
+
+/* Set the cooler's PWM value. */
+
+void gpio::fan_controle(int value){
+    softPwmWrite(PWM, value);
 }
 
 //-------------------------------------------------------------------------------------------------------//

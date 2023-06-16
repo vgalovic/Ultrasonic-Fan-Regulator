@@ -100,14 +100,10 @@ void Dialog::on_reverse_stateChanged(int arg1)
     }
 
     if(!g.get_hcsr04_en()){
-        int r = 100 - g.get_controle_value();
+        reverse();
 
-        ui->slider->setValue(r);
-        ui->bar->setValue(r);
-        g.fan_controle(r);
-        g.set_manual_value(r);
-        g.set_manual_value_changed(false);
-
+        ui->slider->setValue(g.get_controle_value());
+        ui->bar->setValue(g.get_controle_value());
     }
 }
 
