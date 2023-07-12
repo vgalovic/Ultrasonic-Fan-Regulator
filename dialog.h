@@ -36,8 +36,12 @@ private slots:
     void gpio_control();
 
 private:
+    //! Ui::ChartDialog *ui: This variable represents a pointer to the Ui::ChartDialog object,
+    //! which manages the user interface elements of the Dialog class.
     Ui::Dialog *ui;
 
+    //! QTimer *timer: This variable represents a pointer to a QTimer object, which is used for
+    //! triggering timed events or actions. It allows for the scheduling and execution of code at regular intervals.
     QTimer *timer;
 };
 #endif // DIALOG_H

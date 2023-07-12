@@ -3,8 +3,17 @@
 
 #include "chartdialog.h"
 
+//! Declares an object g of type gpio. It creates an instance of the gpio class.
+//! The object can be used to access and utilize the features and methods provided by the gpio class.
 gpio g;
 
+//-------------------------------------------------------------------------------------------------------//
+/*!
+ * \brief Dialog::Dialog
+ * \param parent
+ * The constructor for the Dialog class sets up the user interface, creates a timer for timed events,
+ * establishes a connection between the timer and a function slot, and starts the timer.
+ */
 Dialog::Dialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::Dialog)
@@ -18,7 +27,12 @@ Dialog::Dialog(QWidget *parent)
 
     timer->start(global::TIME);
 }
+//-------------------------------------------------------------------------------------------------------//
 
+/*!
+ * \brief Dialog::~Dialog
+ * The destructor for the Dialog class deletes the ui object, freeing the memory.
+ */
 Dialog::~Dialog()
 {
     delete ui;
@@ -28,6 +42,12 @@ Dialog::~Dialog()
 
 //+++++++++++++++++++++++++++++++++++Ultrasound+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
+/*!
+ * \brief Dialog::on_hcsr04_clicked
+ * The on_hcsr04_clicked() function sets the hcsr04_en flag to true, adjusts the slider and button states
+ * and appearances in the user interface accordingly.
+ */
 void Dialog::on_hcsr04_clicked()
 {
     g.set_hcsr04_en(true);
@@ -42,6 +62,11 @@ void Dialog::on_hcsr04_clicked()
 
 //++++++++++++++++++++++++++++++++Manual+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+/*!
+ * \brief Dialog::on_manual_clicked
+ * The on_manual_clicked() function enables the slider, updates the button states and appearances,
+ * disables the HC-SR04 functionality, and sets the slider value.
+ */
 void Dialog::on_manual_clicked()
 {
     ui->slider->setEnabled(true);
@@ -56,7 +81,12 @@ void Dialog::on_manual_clicked()
 }
 
 //------------------------------------Image Button-----------------------------------------------------------------------
-
+/*!
+ * \brief Dialog::on_button_clicked
+ * \param checked
+ * The on_button_clicked() function updates the button's appearance and toggles the HC-SR04 functionality based on whether the
+ * button is checked or unchecked.
+ */
 void Dialog::on_button_clicked(bool checked)
 {
     //=================================Locked=========================================================
@@ -73,6 +103,12 @@ void Dialog::on_button_clicked(bool checked)
 
 //-------------------------------------Slider-------------------------------------------------------------------------
 
+/*!
+ * \brief Dialog::on_slider_sliderMoved
+ * \param value
+ * The on_slider_sliderMoved() function updates the manual value in the g object based on the slider position.
+ * If the reverse flag is true, it adjusts the value for a progress bar in reverse. Otherwise, it sets the value normally.
+ */
 void Dialog::on_slider_sliderMoved(int value)
 {
     g.set_manual_value(value);
@@ -85,6 +121,13 @@ void Dialog::on_slider_sliderMoved(int value)
 
 //-----------------------------------Check box------------------------------------------------------------------------
 
+/*!
+ * \brief Dialog::on_reverse_stateChanged
+ * \param arg1
+ * The on_reverse_stateChanged() function updates the reverse flag in the g object based on the state change.
+ * If the HC-SR04 functionality is disabled, it adjusts the manual value, invokes the working mode, and updates
+ * the slider and bar values in the user interface.
+ */
 void Dialog::on_reverse_stateChanged(int arg1)
 {
     if(arg1 == 0){
@@ -110,6 +153,11 @@ void Dialog::on_reverse_stateChanged(int arg1)
 
 //-----------------------------------button opens a Dialog with chart-------------------------------------------------
 
+/*!
+ * \brief Dialog::on_chart_bt_clicked
+ * The on_chart_bt_clicked() function enables the chart functionality if it is currently disabled, creates a new
+ * ChartDialog instance, and displays the chart window.
+ */
 void Dialog::on_chart_bt_clicked()
 {
     if(!global::chart_en){
@@ -121,11 +169,15 @@ void Dialog::on_chart_bt_clicked()
         cd->show(); 
     }
 }
+//-------------------------------------------------------------------------------------------------------//
 
-//----------Slot that executes working_mode() from gpio.c every 30 milliseconds and sets the value of the bar---------------
-
+/*!
+ * \brief Dialog::gpio_control
+ * The gpio_control() function updates the working mode and progress bar value.
+ */
 void Dialog::gpio_control(){
     g.working_mode();
 
     ui->bar->setValue(g.get_controle_value());
 }
+//-------------------------------------------------------------------------------------------------------//

@@ -1,7 +1,14 @@
 #include "chartdialog.h"
 #include "ui_chartdialog.h"
 
-
+//-------------------------------------------------------------------------------------------------------//
+/*!
+ * \brief ChartDialog::ChartDialog
+ * \param parent
+ * This is the constructor for the ChartDialog class, which sets up a chart dialog window. It initializes various components such as the chart,
+ * axes, and timer, sets the limits for the chart, adds the series to the chart, and connects the timer signal to update the chart. Finally,
+ * it starts the timer for periodic updates.
+ */
 ChartDialog::ChartDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::ChartDialog)
@@ -47,12 +54,24 @@ ChartDialog::ChartDialog(QWidget *parent)
 
     timer->start(global::TIME);
 }
+//-------------------------------------------------------------------------------------------------------//
 
+/*!
+ * \brief ChartDialog::~ChartDialog
+ * The destructor for the ChartDialog class sets the chart_en flag to false and deletes the ui object, freeing the memory.
+ */
 ChartDialog::~ChartDialog()
 {
     global::chart_en = false;
     delete ui;
 }
+//-------------------------------------------------------------------------------------------------------//
+
+/*!
+ * \brief ChartDialog::update_chart
+ * The update_chart() function in the ChartDialog class appends a new data point to the chart series, updates the chart's title with the current
+ * distance and time values, adjusts the time and distance limits on the chart if needed, and increments the time value for the next data point.
+ */
 
 void ChartDialog::update_chart(){
     series->append(t, global::distance);
@@ -71,3 +90,4 @@ void ChartDialog::update_chart(){
 
    t += (float)global::TIME/1000;
 }
+//-------------------------------------------------------------------------------------------------------//
