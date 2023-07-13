@@ -1,3 +1,12 @@
+/*!
+* \file chartdialog.cpp
+* \brief This is source of ChartDialog class. A class called ChartDialog generates dialog boxes that include charts.
+* The graph illustrates how, in real time, the distance between the object and the distance sensor varies.
+* \author Vladimir Galovć
+* \date 21 - 05 - 2023
+* \version 1.0
+*/
+
 #include "chartdialog.h"
 #include "ui_chartdialog.h"
 

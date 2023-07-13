@@ -1,9 +1,17 @@
+/*!
+* \file dialog.h
+* \brief This is header of Dialog class.The main GUI layout and the application's user interface are implemented in this class.
+* \author Vladimir Galovć
+* \date 21 - 05 - 2023
+* \version 1.0
+*/
+
 #ifndef DIALOG_H
 #define DIALOG_H
 
 #include <QDialog>
-#include <QApplication>
-#include <QFile>
+#include
+
 #include <QTimer>
 
 #include "gpio.h"

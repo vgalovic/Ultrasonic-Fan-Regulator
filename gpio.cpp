@@ -1,3 +1,11 @@
+/*!
+* \file gpio.cpp
+* \brief This is source of gpio class. The class gpio contains methods that interact with connected components using GPIO.
+* \author Vladimir Galovć
+* \date 21 - 05 - 2023
+* \version 1.0
+*/
+
 #include "gpio.h"
 
 //***************************************************************************************************************************//
@@ -245,7 +253,7 @@ void gpio::hcsr04_procent(){
     else if (global::distance >= global::MAX_DISTANCE)
         controle_value = 0;
     else
-        controle_value = 100 - (int)(((float)global::distance / MAX_DISTANCE) * 100);
+        controle_value = 100 - (int)(((float)global::distance / global::MAX_DISTANCE) * 100);
 }
 
 //-------------------------------------------------------------------------------------------------------//

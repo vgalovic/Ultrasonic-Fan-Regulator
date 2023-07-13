@@ -1,3 +1,11 @@
+/*!
+* \file gpio.h
+* \brief This is header of gpio class. The class gpio contains methods that interact with connected components using GPIO.
+* \author Vladimir Galovć
+* \date 21 - 05 - 2023
+* \version 1.0
+*/
+
 #ifndef GPIO_H
 #define GPIO_H
 

@@ -1,6 +1,15 @@
+/*!
+* \file main.cpp
+* \author Vladimir Galovć
+* \date 21 - 05 - 2023
+* \version 1.0
+*/
+
 #include "dialog.h"
 
 #include <QApplication>
+
+#include <QFile>
 
 /*!
  * \brief main

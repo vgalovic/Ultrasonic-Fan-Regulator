@@ -1,3 +1,11 @@
+/*!
+* \file dialog.cpp
+* \brief  This is source of Dialog class.The main GUI layout and the application's user interface are implemented in this class.
+* \author Vladimir Galovć
+* \date 21 - 05 - 2023
+* \version 1.0
+*/
+
 #include "dialog.h"
 #include "ui_dialog.h"
 
